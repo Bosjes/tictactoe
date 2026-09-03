@@ -57,6 +57,7 @@ Enable **Play against computer** to play against the AI.
 
 ```text
 .
+├── LICENSE
 ├── README.md
 ├── styles.css     # Layout, responsive styling, game visuals
 ├── script.js      # Game logic, keyboard controls, score persistence
