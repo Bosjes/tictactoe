@@ -71,8 +71,22 @@ function getWinningCombo() {
 	});
 }
 
+function getWinningComboFor(testBoard) {
+	return winningCombos.find(([a, b, c]) => {
+		return (
+			testBoard[a] !== null &&
+			testBoard[a] === testBoard[b] &&
+			testBoard[a] === testBoard[c]
+		);
+	});
+}
+
 function isDraw() {
 	return board.every((cell) => cell !== null);
+}
+
+function isDrawFor(testBoard) {
+	return testBoard.every((cell) => cell !== null);
 }
 
 function placeMark(cell, index) {
@@ -281,8 +295,95 @@ function resetScores() {
 	statusEl.textContent = "Scores reset. Player X's turn";
 }
 
-function getAvailableMoves() {
-	return board
+function minimax(testBoard, depth, isMaximizing) {
+	const winningCombo = getWinningComboFor(testBoard);
+
+	if (winningCombo) {
+		const winner = testBoard[winningCombo[0]];
+
+		if (winner === COMPUTER_PLAYER) {
+			return 10 - depth;
+		}
+
+		if (winner === HUMAN_PLAYER) {
+			return depth - 10;
+		}
+	}
+
+	if (isDrawFor(testBoard)) {
+		return 0;
+	}
+
+	const availableMoves = getAvailableMoves(testBoard);
+
+	if (isMaximizing) {
+		let bestScore = -Infinity;
+
+		for (const index of availableMoves) {
+			testBoard[index] = COMPUTER_PLAYER;
+			const score = minimax(testBoard, depth + 1, false);
+			testBoard[index] = null; // backtrack
+
+			bestScore = Math.max(score, bestScore);
+		}
+
+		return bestScore;
+	} else {
+		let bestScore = Infinity;
+
+		for (const index of availableMoves) {
+			testBoard[index] = HUMAN_PLAYER;
+			const score = minimax(testBoard, depth + 1, true);
+			testBoard[index] = null; // backtrack
+
+			bestScore = Math.min(score, bestScore);
+		}
+
+		return bestScore;
+	}
+}
+
+function getBestComputerMove() {
+	const availableMoves = getAvailableMoves();
+	let bestScore = -Infinity;
+	let bestMoves = [];
+
+	availableMoves.forEach((index) => {
+		/*
+      Temporarily try O at this position.
+    */
+		board[index] = COMPUTER_PLAYER;
+
+		/*
+      The next simulated turn belongs to X,
+      so `isMaximizing` is false.
+    */
+		const score = minimax(board, 0, false);
+
+		/*
+      Restore the real board before testing the next move.
+    */
+		board[index] = null;
+
+		if (score > bestScore) {
+			bestScore = score;
+			bestMoves = [index];
+		} else if (score === bestScore) {
+			/*
+        Several moves can be equally perfect.
+        Keep all of them to avoid the AI always choosing
+        the exact same opening.
+      */
+			bestMoves.push(index);
+		}
+	});
+
+	const randomBestMove = Math.floor(Math.random() * bestMoves.length);
+	return bestMoves[randomBestMove];
+}
+
+function getAvailableMoves(testBoard = board) {
+	return testBoard
 		.map((cell, index) => (cell === null ? index : null))
 		.filter((index) => index !== null);
 }
@@ -305,8 +406,7 @@ function makeComputerMove() {
 		return;
 	}
 
-	const randomIndex = Math.floor(Math.random() * availableMoves.length);
-	const moveIndex = availableMoves[randomIndex];
+	const moveIndex = getBestComputerMove();
 	const computerCell = cells[moveIndex];
 
 	computerThinking = false;
