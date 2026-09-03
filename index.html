@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic Tac Toe</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrapper">
+    <h1 class="title">Tic Tac Toe</h1>
+
+    <p class="status" id="status">Player X's turn</p>
+
+    <section class="game-area" aria-label="Tic Tac Toe game">
+      <div class="score score-x" aria-label="Player X score">
+        <span class="score-player">X</span>
+        <span class="score-number" id="xScore">0</span>
+        <span class="score-label">Wins</span>
+      </div>
+
+      <div class="game-board" id="board" aria-label="Tic Tac Toe board">
+        <button class="cell" data-index="0" aria-label="Empty top left cell"></button>
+        <button class="cell" data-index="1" aria-label="Empty top middle cell"></button>
+        <button class="cell" data-index="2" aria-label="Empty top right cell"></button>
+
+        <button class="cell" data-index="3" aria-label="Empty middle left cell"></button>
+        <button class="cell" data-index="4" aria-label="Empty center cell"></button>
+        <button class="cell" data-index="5" aria-label="Empty middle right cell"></button>
+
+        <button class="cell" data-index="6" aria-label="Empty bottom left cell"></button>
+        <button class="cell" data-index="7" aria-label="Empty bottom middle cell"></button>
+        <button class="cell" data-index="8" aria-label="Empty bottom right cell"></button>
+      </div>
+
+      <div class="score score-o" aria-label="Player O score">
+        <span class="score-player">O</span>
+        <span class="score-number" id="oScore">0</span>
+        <span class="score-label">Wins</span>
+      </div>
+    </section>
+
+    <div class="button-row">
+      <button class="reset-btn" id="resetBtn" type="button">
+        New round
+      </button>
+
+      <button class="score-reset-btn" id="resetScoreBtn" type="button">
+        Reset scores
+      </button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
