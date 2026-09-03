@@ -256,3 +256,23 @@ body {
     flex-wrap: wrap;
   }
 }
+
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mode-toggle input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+
+  accent-color: #a78bfa;
+  cursor: pointer;
+}
