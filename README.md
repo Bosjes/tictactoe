@@ -36,10 +36,10 @@ When the page loads, the top-left cell is selected so keyboard controls work imm
 
 ```text
 .
-├── index.html     # Page structure and game-board buttons
+├── README.md
 ├── styles.css     # Layout, responsive styling, game visuals
 ├── script.js      # Game logic, keyboard controls, score persistence
-└── README.md
+└── index.html     # Page structure and game-board buttons
 ```
 
 ## Score persistence
