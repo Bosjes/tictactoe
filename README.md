@@ -197,3 +197,9 @@ This shared indexing makes it straightforward to validate moves, detect wins, hi
 - Add sound effects for moves, wins, and resets
 - Add a difficulty selector for the AI
 - Add animations when a marker is placed
+
+## Usage of LLMs/AI
+
+- Help me style the page
+- To explain minimax and help me implement it
+- LLMs have been used to help me make the README
